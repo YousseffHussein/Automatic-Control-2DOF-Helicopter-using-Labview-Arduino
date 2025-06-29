@@ -1,83 +1,52 @@
-#  Automatic Control SISO System (.vi – LabVIEW Project)
+# 🚁 2-DOF Helicopter Control Project
 
-## 📌 Project Description
+This project explores the design and implementation of a control system for a **2-degree-of-freedom (2-DOF) helicopter beam**. It was developed as part of the Automatic Control 2 course (MTE 423).
 
-This project demonstrates a **Single Input Single Output (SISO)** control system implemented using **LabVIEW**. The system simulates an automatic control loop where a **manual input signal** is tracked and matched by a **motor-driven output signal**, using real-time feedback and actuation logic.
+## 📄 Description
 
-The control logic is developed as a `.vi` file using **LabVIEW**, making use of analog signal acquisition, real-time comparison, and motor control based on error calculations.
+The goal of this project was to regulate the dynamics of a 2-DOF helicopter beam, achieving stable and precise pitch and yaw control.
 
----
+- A **PID controller** was implemented to minimize oscillations, reduce steady-state error, and improve system stability.
+- A **PD controller** was initially tested but proved inadequate due to high steady-state error. Introducing the integral component (I) in the PID controller significantly improved performance.
 
-## 🎯 Objectives
+## 🛠️ Hardware Components
 
-- Develop a closed-loop control system in **LabVIEW**.
-- Use one potentiometer as **manual input** and another as a **feedback output**.
-- Control a DC motor to align the output signal with the desired input.
-- Demonstrate fundamental principles of **automatic control systems**, such as error correction, tolerance limits, and direction control.
+- Arduino Uno
+- Motor Driver L298 (replacing DRV8871 after failure)
+- 720 Coreless Motors with 75mm Propellers
+- Rolling Bearings (3 pieces)
+- 3D-Printed Shafts (for vertical height and swinging motion)
+- Acrylic Beam and Base
+- Wooden Base Block
+- Accelerometer/Gyroscope
+- Batteries
 
----
+These components were assembled into a mechanical system capable of simulating pitch and yaw motions.
 
-## 🧰 Hardware Requirements
+## 🧮 System Modeling & Control
 
-- ✅ NI DAQ or compatible analog/digital interface
-- ✅ LabVIEW (with DAQmx drivers)
-- ✅ Two potentiometers (manual and motor-attached)
-- ✅ DC Motor
-- ✅ Motor Driver (e.g., L298N)
-- ✅ Power Supply
-- ✅ USB cable (for communication/control)
+- A **state-space model** was derived using the Euler-Lagrange method and linearized under small-angle assumptions.
+- Inputs: Voltages to main and tail rotors
+- Outputs: Pitch angle (θ) and yaw angle (φ)
+- Due to the coupling between pitch and yaw channels, the system was treated as multivariable.
 
----
+## 🖥️ Software & Simulation
 
-## 🧠 How It Works
+- **LabVIEW** was used to implement and simulate the control algorithms.
+- The **LINX toolkit** enabled serial communication between LabVIEW and Arduino.
+- Challenges encountered:
+  - Serial port conflicts
+  - Difficulty calibrating the accelerometer and gyroscope readings
 
-- **Input Potentiometer**: Sets the desired position or target value.
-- **Output Potentiometer**: Connected to a DC motor, representing system output.
-- **LabVIEW VI** reads both analog signals and continuously computes the **error**.
-- If the error is greater than a defined **tolerance**, it sends control signals to rotate the motor in the required direction.
-- Once the error is within the tolerance, the **motor stops**.
+Simulations confirmed the effectiveness of PID control for stabilizing both pitch and yaw.
 
----
+## ✅ Results & Conclusion
 
-## 💡 Key Features
-
-- Developed entirely in **LabVIEW (.vi)**
-- Real-time analog signal processing
-- Directional motor control logic
-- Tolerance threshold for stable stop behavior
-- Scalable motor speed based on error magnitude (if included)
-
----
-
-## 📁 Files
-
-- `Automatic-Control-single-input---single-output.vi`: Main control file
-- Optional:
-  - `ControlLogicSub.vi`: (if modularized)
-  - `DAQConfig.vi`: Handles hardware channels and signal mapping
+- The PID controller provided stable, precise control compared to the initial PD-only design.
+- Future work may explore:
+  - Advanced control methods (e.g., adaptive PID, Model Predictive Control)
+  - Experimental validation on a physical helicopter model
 
 ---
 
-## 📷 Optional Add-ons
-
-- LCD/Graphical output to display current input/output
-- Logging system using `.csv` for data analysis
-- PID control implementation for smoother and more accurate performance
-
----
-
-## 🧪 Learning Outcomes
-
-- Application of **feedback control** theory in real-time systems
-- Hands-on practice with **LabVIEW VI development**
-- Interfacing DAQ hardware with external electronics
-- Signal acquisition, processing, and actuation principles
-
----
-
-## 👤 Developed By
-
-This project was submitted as part of the **Automatic Control** course to explore the dynamics of SISO control systems using **LabVIEW and real-world hardware integration**.
-
----
 
